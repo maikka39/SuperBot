@@ -2,8 +2,6 @@
 
 [Add to your Discord server](https://discordapp.com/api/oauth2/authorize?client_id=459079947219107860&permissions=8&scope=bot)
 
-![SuperBot Screenshot](https://raw.githubusercontent.com/maikka39/WatchTogether/master/static/img/WatchTogether.png)
-
 SuperBot is the solution to your crowded and chaotic Discord server!
 
 SuperBot is still in beta
