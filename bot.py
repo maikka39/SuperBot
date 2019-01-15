@@ -34,14 +34,14 @@ async def on_ready():
     activity = discord.Activity(name="commands", type=2)
     await bot.change_presence(status=discord.Status.online, activity=activity)
 
-    bot.remove_command("help")
-
     print(bot.user.name + " is running")
 
 
 if __name__ == "__main__":
     # This allows the cogs in the commands folder to be loaded
     sys.path.insert(1, os.getcwd() + "/commands/")
+
+    bot.remove_command("help")
 
     for extension in initial_extensions:
         try:
