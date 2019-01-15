@@ -65,13 +65,17 @@ class Info:
             name="Creator", value="<@273161070103887872>", inline=True)
         embed.add_field(name="Aviable Since", value="2018-02-12", inline=True)
         embed.add_field(name="Written In", value="Python", inline=True)
-        embed.add_field(name="Servers", value=str(len(self.bot.guilds)))
+        embed.add_field(name="Servers", value=str(
+            len(self.bot.guilds)), inline=True)
         total_members = 0
         for guild in self.bot.guilds:
             total_members -= 1
             for member in guild.members:
                 total_members += 1
-        embed.add_field(name="Members", value=str(total_members))
+        embed.add_field(name="Members", value=str(total_members), inline=True)
+
+        embed.add_field(
+            name="Support", value="https://discord.gg/vjFjJu", inline=False)
         # embed.add_field(name="Invite Link", value="https://discordapp.com/oauth2/authorize?client_id=459079947219107860&scope=bot&permissions=8")
         # embed.add_field(name="Invite Link", value="https://discordapp.com/oauth2/authorize?client_id=459079947219107860&scope=bot&permissions=2146958591")
         embed.set_thumbnail(
