@@ -15,6 +15,31 @@ SuperBot is still in beta
 
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/) [![GitHub issues](https://img.shields.io/github/issues/maikka39/SuperBot.svg "GitHub issues")](https://github.com/maikka39/SuperBot/issues) [![GitHub stars](https://img.shields.io/github/stars/maikka39/SuperBot.svg "GitHub stars")](https://github.com/maikka39/SuperBot/stargazers) [![Github search hit counter](https://img.shields.io/github/search/maikka39/SuperBot/hit.svg)](#)
 
+## Features
+
+* Play music
+    * Pause
+    * Resume
+    * Volume Control
+    * Queue
+    * Skip song
+
+* Manage Server
+    * Kick Members
+    * Ban Members
+    * Mute Members
+    * Clear Chat
+
+* Game Stats
+    * Steam
+    * CS:GO
+    * More Coming Soon!
+
+* Other
+    * Roll a Dice
+    * Get the Time
+    * Ping Pong
+
 ## Dependencies
 
 * discord.py
