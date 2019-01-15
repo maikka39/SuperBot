@@ -124,7 +124,8 @@ class Staff:
                               " has been kicked by " + ctx.message.author.mention, color=COLOR)
         try:
             await ctx.message.author.kick(member)
-        except:
+        except Exception as e:
+            print(e)
             embed = discord.Embed(title=Title, description="Could not kick " +
                                   member.mention + ", Privilege is too low", color=COLOR)
         await ctx.send(embed=embed)

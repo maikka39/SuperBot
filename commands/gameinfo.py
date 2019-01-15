@@ -6,7 +6,6 @@ import urllib.request
 
 import discord
 from discord.ext import commands
-
 from mainconf import STEAMAPIKEY
 
 COLOR = 0x0288d1

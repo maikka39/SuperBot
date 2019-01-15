@@ -131,7 +131,8 @@ class Music:
             embed.add_field(name="Duration", value="{0[0]}m {0[1]}s".format(
                 divmod(duration, 60)), inline=True)
         if len(self.song_queue) > 0:
-            embed.add_field(name="Position in Queue", value=str(self.song_queue.index(song) + 1), inline=True)
+            embed.add_field(name="Position in Queue", value=str(
+                self.song_queue.index(song) + 1), inline=True)
         else:
             embed.add_field(name="Position in Queue", value="0", inline=True)
 
@@ -152,7 +153,8 @@ class Music:
             self.voice_client.source.volume = value / 100
             embed = discord.Embed(
                 title=self.message_title,
-                description="Set the volume to {:.0%}".format(self.voice_client.source.volume),
+                description="Set the volume to {:.0%}".format(
+                    self.voice_client.source.volume),
                 color=COLOR)
             await ctx.send(embed=embed)
             return
@@ -275,11 +277,13 @@ class Music:
 
         upcoming = ""
         for song in self.song_queue:
-            upcoming += str(self.song_queue.index(song) + 1) + ". " + song.title + ", requester: " + song.requester + "\n"
+            upcoming += str(self.song_queue.index(song) + 1) + ". " + \
+                song.title + ", requester: " + song.requester + "\n"
         if upcoming == "":
             embed.add_field(name="Upcoming", value="None \n", inline=False)
         else:
-            embed.add_field(name="Upcoming", value=upcoming + "\n", inline=False)
+            embed.add_field(name="Upcoming", value=upcoming +
+                            "\n", inline=False)
         await ctx.send(embed=embed)
 
     def play_next_song(self):
@@ -292,8 +296,10 @@ class Music:
         song = self.song_queue[0]
         self.song_queue.pop(0)
         self.voice_client.song = song
-        self.voice_client.play(discord.FFmpegPCMAudio(song.download_url), after=self.play_next_song)
-        self.voice_client.source = discord.PCMVolumeTransformer(self.voice_client.source)
+        self.voice_client.play(discord.FFmpegPCMAudio(
+            song.download_url), after=self.play_next_song)
+        self.voice_client.source = discord.PCMVolumeTransformer(
+            self.voice_client.source)
         self.voice_client.source.volume = 0.6
 
     def add_to_queue(self, url, requester):
@@ -312,8 +318,8 @@ class Music:
             'audio-quality': '0'
         }
 
-        ydl = youtube_dl.YoutubeDL(opts)
-        func = functools.partial(ydl.extract_info, url, download=False)
+        ytdl = youtube_dl.YoutubeDL(opts)
+        func = functools.partial(ytdl.extract_info, url, download=False)
         info = func()
         if "entries" in info:
             info = info['entries'][0]
@@ -324,7 +330,7 @@ class Music:
         # set the dynamic attributes from the info extraction
         song.download_url = download_url
         song.url = url
-        song.yt = ydl
+        song.ytdl = ytdl
         song.views = info.get('view_count')
         song.is_live = bool(info.get('is_live'))
         song.likes = info.get('like_count')
@@ -358,7 +364,7 @@ class Music:
         def __init__(self):
             self.download_url = ""
             self.url = ""
-            self.yt = ""
+            self.ytdl = ""
             self.views = ""
             self.is_live = ""
             self.likes = ""

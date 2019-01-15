@@ -5,7 +5,6 @@ import sys
 
 import discord
 from discord.ext import commands
-
 from mainconf import TOKEN
 
 logger = logging.getLogger('discord')

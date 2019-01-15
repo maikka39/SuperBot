@@ -3,7 +3,6 @@ import sys
 
 import discord
 from discord.ext import commands
-
 from mainconf import BOTDEVS
 
 COLOR = 0x00ff00
