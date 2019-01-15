@@ -78,6 +78,19 @@ class Info:
             url="https://cdn.discordapp.com/app-icons/459079947219107860/12dff058050c439509940490dd4bbe3c.png?size=256")
         await ctx.send(embed=embed)
 
+    @commands.command(pass_context=True, aliases=["h"])
+    async def help(self, ctx):
+
+        # Remove the message send by the author
+        await asyncio.sleep(0.05)
+        await ctx.message.delete()
+
+        embed = discord.Embed(
+            name="Help", description="Documentation about me!", color=COLOR)
+        embed.add_field(
+            name="Link", value="https://github.com/maikka39/SuperBot/wiki", inline=True)
+        await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(Info(bot))
