@@ -35,10 +35,18 @@ SuperBot is still in beta
     * CS:GO
     * More Coming Soon!
 
+* User Info
+    * Get info about a user
+    * Get info about the current server
+    * Get info about this bot
+
 * Other
     * Roll a Dice
     * Get the Time
     * Ping Pong
+    
+## Usage
+[How to use this bot.](https://github.com/maikka39/SuperBot/wiki)
 
 ## Dependencies
 
