@@ -82,7 +82,7 @@ class Info:
             url="https://cdn.discordapp.com/app-icons/459079947219107860/12dff058050c439509940490dd4bbe3c.png?size=256")
         await ctx.send(embed=embed)
 
-    @commands.command(pass_context=True, aliases=["h"])
+    @commands.command(pass_context=True, aliases=["h", "docs"])
     async def help(self, ctx):
 
         # Remove the message send by the author
