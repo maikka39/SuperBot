@@ -33,11 +33,12 @@ class Gameinfo:
         steamuserid = user
         with urllib.request.urlopen("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=" + STEAMAPIKEY + "&steamids=" + steamuserid) as url:
             data = json.loads(url.read().decode())
-        if data["response"]["players"] == []:
+        if safe_get_list(safe_get_list(data, "response"), "players", []) == []:
             with urllib.request.urlopen("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/?key=" + STEAMAPIKEY + "&vanityurl=" + user) as url:
                 data = json.loads(url.read().decode())
-            if data["response"]["success"] == 1:
-                steamuserid = data["response"]["steamid"]
+            if safe_get_list(safe_get_list(data, "response"), "success") == 1:
+                steamuserid = safe_get_list(
+                    safe_get_list(data, "response"), "steamid")
             else:
                 steamuserid = None
 
@@ -49,13 +50,15 @@ class Gameinfo:
                     title="Steam Accounts", description="Please provide a valid steam id or url", color=COLOR)
                 await ctx.send(embed=embed)
                 return
-        if data["response"]["players"] == []:
+        if safe_get_list(safe_get_list(data, "response"), "players", []) == []:
             embed = discord.Embed(
                 title="Steam Accounts", description="Please provide a valid steam id or url", color=COLOR)
             await ctx.send(embed=embed)
             return
 
-        steamsummary = data["response"]["players"][0]
+        # steamsummary = data["response"]["players"][0]
+        steamsummary = safe_get_list(safe_get_list(
+            safe_get_list(data, "response"), "players"), 0)
 
         embed = discord.Embed(title="Steam Account", description="Here's what I could find about " +
                               str(safe_get_list(steamsummary, "personaname")) + ".", color=COLOR)
@@ -77,7 +80,7 @@ class Gameinfo:
             embed.add_field(name="Country", value=str("Private"))
 
         embed.add_field(name="Status", value=str(
-            ["Offline", "Online", "Busy", "Away", "Snooze", "Looking to Trade"][safe_get_list(steamsummary, "personastate")]))
+            safe_get_list(["Offline", "Online", "Busy", "Away", "Snooze", "Looking to Trade"], safe_get_list(steamsummary, "personastate", "Unknown"))))
 
         try:
             embed.add_field(name="Joined", value=str(datetime.datetime.fromtimestamp(
@@ -85,8 +88,12 @@ class Gameinfo:
         except ValueError:
             embed.add_field(name="Joined", value=str("Unknown"))
 
+        with urllib.request.urlopen("https://api.steampowered.com/IPlayerService/GetSteamLevel/v1/?key=" + STEAMAPIKEY + "&steamid=" + steamuserid) as url:
+            leveldata = safe_get_list(json.loads(
+                url.read().decode()), "response")
         embed.add_field(name="Level", value=str(
-            safe_get_list(steamsummary, "communityvisibilitystate")))
+            safe_get_list(leveldata, "player_level")))
+
         embed.add_field(name="Profile", value=str(
             safe_get_list(steamsummary, "profileurl")))
         embed.set_thumbnail(url=safe_get_list(steamsummary, "avatarfull"))
