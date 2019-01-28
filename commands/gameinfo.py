@@ -16,6 +16,19 @@ class Gameinfo:
     def __init__(self, bot):  # This allows the cog to access the bot, and its functions
         self.bot = bot
 
+    async def get_steam_id(self, ctx, user):
+        with urllib.request.urlopen("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=" + STEAMAPIKEY + "&steamids=" + user) as url:
+            data = json.loads(url.read().decode())
+        if safe_get_list(safe_get_list(data, "response"), "players", []) == []:
+            with urllib.request.urlopen("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/?key=" + STEAMAPIKEY + "&vanityurl=" + user) as url:
+                data = json.loads(url.read().decode())
+            if safe_get_list(safe_get_list(data, "response"), "success") == 1:
+                user = safe_get_list(
+                    safe_get_list(data, "response"), "steamid")
+            else:
+                user = None
+        return user
+
     @commands.command(pass_context=True)
     async def steam(self, ctx, user=None):
         # Remove the message send by the author
@@ -28,28 +41,17 @@ class Gameinfo:
             await ctx.send(embed=embed)
             return
 
-        # steamsummary = get_steam_player_summary(user)
+        steamuserid = await self.get_steam_id(ctx, user)
 
-        steamuserid = user
-        with urllib.request.urlopen("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=" + STEAMAPIKEY + "&steamids=" + steamuserid) as url:
-            data = json.loads(url.read().decode())
-        if safe_get_list(safe_get_list(data, "response"), "players", []) == []:
-            with urllib.request.urlopen("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/?key=" + STEAMAPIKEY + "&vanityurl=" + user) as url:
+        try:
+            with urllib.request.urlopen("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=" + STEAMAPIKEY + "&steamids=" + steamuserid) as url:
                 data = json.loads(url.read().decode())
-            if safe_get_list(safe_get_list(data, "response"), "success") == 1:
-                steamuserid = safe_get_list(
-                    safe_get_list(data, "response"), "steamid")
-            else:
-                steamuserid = None
+        except:
+            embed = discord.Embed(
+                title="Steam Accounts", description="Please provide a valid steam id or url", color=COLOR)
+            await ctx.send(embed=embed)
+            return
 
-            try:
-                with urllib.request.urlopen("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=" + STEAMAPIKEY + "&steamids=" + steamuserid) as url:
-                    data = json.loads(url.read().decode())
-            except:
-                embed = discord.Embed(
-                    title="Steam Accounts", description="Please provide a valid steam id or url", color=COLOR)
-                await ctx.send(embed=embed)
-                return
         if safe_get_list(safe_get_list(data, "response"), "players", []) == []:
             embed = discord.Embed(
                 title="Steam Accounts", description="Please provide a valid steam id or url", color=COLOR)
