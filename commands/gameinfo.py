@@ -54,35 +54,50 @@ class Gameinfo:
                 title="Steam Accounts", description="Please provide a valid steam id or url", color=COLOR)
             await ctx.send(embed=embed)
             return
+
         steamsummary = data["response"]["players"][0]
 
         embed = discord.Embed(title="Steam Account", description="Here's what I could find about " +
-                              str(steamsummary["personaname"]) + ".", color=COLOR)
+                              str(safe_get_list(steamsummary, "personaname")) + ".", color=COLOR)
 
         try:
             embed.add_field(name="Name (Real Name)", value=str(
-                steamsummary["personaname"] + " (" + steamsummary["realname"] + ")"))
+                safe_get_list(steamsummary, "personaname") + " (" + safe_get_list(steamsummary, "realname") + ")"))
         except:
             embed.add_field(name="Name (Real Name)", value=str(
-                steamsummary["personaname"] + " (" + "Private" + ")"))
+                safe_get_list(steamsummary, "personaname") + " (" + "Private" + ")"))
 
-        embed.add_field(name="ID", value=str(steamsummary["steamid"]))
+        embed.add_field(name="ID", value=str(
+            safe_get_list(steamsummary, "steamid")))
 
         try:
             embed.add_field(name="Country", value=str(
-                pycountry.countries.get(alpha_2=steamsummary["loccountrycode"]).name))
+                pycountry.countries.get(alpha_2=safe_get_list(steamsummary, "loccountrycode")).name))
         except:
             embed.add_field(name="Country", value=str("Private"))
 
         embed.add_field(name="Status", value=str(
-            ["Offline", "Online", "Busy", "Away", "Snooze", "Looking to Trade"][steamsummary["personastate"]]))
-        embed.add_field(name="Joined", value=str(datetime.datetime.fromtimestamp(
-            int(steamsummary["timecreated"])).strftime('%Y-%m-%d')))
+            ["Offline", "Online", "Busy", "Away", "Snooze", "Looking to Trade"][safe_get_list(steamsummary, "personastate")]))
+
+        try:
+            embed.add_field(name="Joined", value=str(datetime.datetime.fromtimestamp(
+                int(safe_get_list(steamsummary, "timecreated"))).strftime('%Y-%m-%d')))
+        except ValueError:
+            embed.add_field(name="Joined", value=str("Unknown"))
+
         embed.add_field(name="Level", value=str(
-            steamsummary["communityvisibilitystate"]))
-        embed.add_field(name="Profile", value=str(steamsummary["profileurl"]))
-        embed.set_thumbnail(url=steamsummary["avatarfull"])
+            safe_get_list(steamsummary, "communityvisibilitystate")))
+        embed.add_field(name="Profile", value=str(
+            safe_get_list(steamsummary, "profileurl")))
+        embed.set_thumbnail(url=safe_get_list(steamsummary, "avatarfull"))
         await ctx.send(embed=embed)
+
+
+def safe_get_list(l, item, default="Unknown"):
+    try:
+        return l[item]
+    except:
+        return default
 
 
 def setup(bot):
