@@ -6,6 +6,7 @@ import sys
 
 import discord
 from discord.ext import commands
+from pythonping import ping
 
 COLOR = 0xff6d00
 
@@ -18,8 +19,9 @@ class Fun:
     @commands.command(pass_context=True)
     async def ping(self, ctx):
         embed = discord.Embed(
-            title="Ping Pong", description="Pong :ping_pong:", color=COLOR)
+            title="Ping Pong", description=str("Pong :ping_pong: \n\n Response took {0}ms".format(round(self.bot.latency, 1))), color=COLOR)
         await ctx.send(embed=embed)
+        # TODO: Add ping response time
 
     @commands.command(pass_context=True)
     async def roll(self, ctx):
