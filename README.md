@@ -44,7 +44,7 @@ SuperBot is still in beta
     * Roll a Dice
     * Get the Time
     * Ping Pong
-    
+
 ## Usage
 [How to use this bot.](https://github.com/maikka39/SuperBot/wiki)
 
@@ -52,6 +52,8 @@ SuperBot is still in beta
 
 * discord.py
 * youtube-dl
+* pycountry
+* pythonping
 
 ## How to run
 How to run this bot yourself.
@@ -62,6 +64,8 @@ git clone https://github.com/Rapptz/discord.py.git --branch rewrite --single-bra
 cd discord.py
 python3.6 -m pip install -U .[voice]
 python3.6 -m pip install youtube-dl
+python3.6 -m pip install pycountry
+python3.6 -m pip install pythonping
 sudo apt install ffmpeg
 ```
 
