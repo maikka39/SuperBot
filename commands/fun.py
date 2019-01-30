@@ -19,7 +19,7 @@ class Fun:
     @commands.command(pass_context=True)
     async def ping(self, ctx):
         embed = discord.Embed(
-            title="Ping Pong", description=str("Pong :ping_pong: \n\n Response took {0}ms".format(round(self.bot.latency, 1))), color=COLOR)
+            title="Ping Pong", description=str("Pong :ping_pong: \n\n Response took `{0}ms`".format(round(self.bot.latency, 1))), color=COLOR)
         await ctx.send(embed=embed)
         # TODO: Add ping response time
 
