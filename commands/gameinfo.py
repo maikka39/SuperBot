@@ -5,6 +5,7 @@ import sys
 import urllib.request
 
 import discord
+import pycountry
 from discord.ext import commands
 from mainconf import STEAMAPIKEY
 
