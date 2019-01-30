@@ -1,6 +1,7 @@
 import asyncio
 import datetime
 import json
+import re
 import sys
 import urllib.request
 
@@ -24,6 +25,12 @@ class Gameinfo:
             self.steamtitles = None
 
     def get_steam_id(self, user):
+        match = re.match(
+            r'((http|https):\/\/steamcommunity.com\/(profiles|id)\/(?P<steamid>\w+))', user)
+
+        if match:
+            user = match.group("steamid")
+
         with urllib.request.urlopen("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=" + STEAMAPIKEY + "&steamids=" + user) as url:
             data = json.loads(url.read().decode())
         if safe_get_list(safe_get_list(data, "response"), "players", []) == []:
