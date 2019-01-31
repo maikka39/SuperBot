@@ -18,8 +18,9 @@ class Fun:
 
     @commands.command(pass_context=True)
     async def ping(self, ctx):
+        print(round(self.bot.latency * 1000, 1))
         embed = discord.Embed(
-            title="Ping Pong", description=str("Pong :ping_pong: \n\n Response took `{0}ms`".format(round(self.bot.latency, 1))), color=COLOR)
+            title="Ping Pong", description=str("Pong :ping_pong: \n\n Response took `{0}ms`".format(round(self.bot.latency * 1000, 1))), color=COLOR)
         await ctx.send(embed=embed)
 
     @commands.command(pass_context=True)
