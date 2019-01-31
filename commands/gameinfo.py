@@ -171,7 +171,8 @@ class Gameinfo:
             int(mostplayed[1] / 60)) + "h")
         embed.add_field(name="Profile", value=str(
             safe_get_list(steamsummary, "profileurl")), inline=False)
-        embed.set_thumbnail(url=safe_get_list(steamsummary, "avatarfull"))
+        embed.set_thumbnail(url=str(
+            "https://steamcdn-a.akamaihd.net/steam/apps/{0}/header.jpg".format(mostplayed[0])))
         await ctx.send(embed=embed)
 
 
