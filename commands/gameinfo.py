@@ -1,9 +1,9 @@
 import asyncio
 import datetime
 import json
-import re
-import sys
 import urllib.request
+from commands.lib.other import safe_get_list
+from commands.lib.steamapi import SteamAPI as steam_api
 
 import discord
 import pycountry
@@ -12,41 +12,14 @@ from mainconf import STEAMAPIKEY
 
 COLOR = 0x0288d1
 
+SteamAPI = steam_api(STEAMAPIKEY)
+
 
 class Gameinfo:
 
     def __init__(self, bot):  # This allows the cog to access the bot, and its functions
         self.bot = bot
-        try:
-            with urllib.request.urlopen("https://api.steampowered.com/ISteamApps/GetAppList/v2/") as url:
-                self.steamtitles = safe_get_list(safe_get_list(
-                    json.loads(url.read().decode()), "applist"), "apps")
-        except:
-            self.steamtitles = None
-
-    def get_steam_id(self, user):
-        match = re.match(
-            r'((http|https):\/\/steamcommunity.com\/(profiles|id)\/(?P<steamid>\w+))', user)
-
-        if match:
-            user = match.group("steamid")
-
-        with urllib.request.urlopen("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=" + STEAMAPIKEY + "&steamids=" + user) as url:
-            data = json.loads(url.read().decode())
-        if safe_get_list(safe_get_list(data, "response"), "players", []) == []:
-            with urllib.request.urlopen("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/?key=" + STEAMAPIKEY + "&vanityurl=" + user) as url:
-                data = json.loads(url.read().decode())
-            if safe_get_list(safe_get_list(data, "response"), "success") == 1:
-                user = safe_get_list(
-                    safe_get_list(data, "response"), "steamid")
-            else:
-                user = None
-        return user
-
-    def get_steam_title(self, appid):
-        for title in self.steamtitles:
-            if str(safe_get_list(title, "appid")) == str(appid):
-                return safe_get_list(title, "name")
+        SteamAPI.get_game_titles()
 
     @commands.command(pass_context=True)
     async def steam(self, ctx, user=None):
@@ -60,7 +33,7 @@ class Gameinfo:
             await ctx.send(embed=embed)
             return
 
-        steamuserid = self.get_steam_id(user)
+        steamuserid = SteamAPI.get_steam_id(user)
 
         try:
             with urllib.request.urlopen("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=" + STEAMAPIKEY + "&steamids=" + steamuserid) as url:
@@ -120,8 +93,8 @@ class Gameinfo:
         embed.set_thumbnail(url=safe_get_list(steamsummary, "avatarfull"))
         await ctx.send(embed=embed)
 
-    @commands.command(pass_context=True, aliases=["addicted", "addiction"])
-    async def addict(self, ctx, user=None):
+    @commands.command(pass_context=True, aliases=["addicted", "addict"])
+    async def addiction(self, ctx, user=None):
         # Remove the message send by the author
         await asyncio.sleep(0.05)
         await ctx.message.delete()
@@ -132,7 +105,7 @@ class Gameinfo:
             await ctx.send(embed=embed)
             return
 
-        steamuserid = self.get_steam_id(user)
+        steamuserid = SteamAPI.get_steam_id(user)
 
         try:
             with urllib.request.urlopen("https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=" + STEAMAPIKEY + "&steamid=" + steamuserid) as url:
@@ -166,7 +139,7 @@ class Gameinfo:
                               str(safe_get_list(steamsummary, "personaname")) + "." + "\nThey seem to be addicted to:", color=COLOR)
 
         embed.add_field(name="Game", value=str(
-            self.get_steam_title(mostplayed[0])))
+            SteamAPI.get_game_title(mostplayed[0])))
         embed.add_field(name="Playtime", value=str(
             int(mostplayed[1] / 60)) + "h")
         embed.add_field(name="Profile", value=str(
@@ -174,13 +147,6 @@ class Gameinfo:
         embed.set_thumbnail(url=str(
             "https://steamcdn-a.akamaihd.net/steam/apps/{0}/header.jpg".format(mostplayed[0])))
         await ctx.send(embed=embed)
-
-
-def safe_get_list(l, item, default="Unknown"):
-    try:
-        return l[item]
-    except:
-        return default
 
 
 def setup(bot):

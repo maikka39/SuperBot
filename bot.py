@@ -26,6 +26,7 @@ initial_extensions = [
     "gameinfo",
     "music",
     "testing",
+    "dictionary",
 ]
 
 
