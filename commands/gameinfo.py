@@ -21,7 +21,7 @@ class Gameinfo:
         self.bot = bot
         SteamAPI.get_game_titles()
 
-    @commands.command(pass_context=True)
+    @commands.command(pass_context=True, aliases=["st"])
     async def steam(self, ctx, user=None):
         # Remove the message send by the author
         await asyncio.sleep(0.05)
@@ -33,68 +33,50 @@ class Gameinfo:
             await ctx.send(embed=embed)
             return
 
-        steamuserid = SteamAPI.get_steam_id(user)
+        steamid = SteamAPI.get_steam_id(user)
 
-        try:
-            with urllib.request.urlopen("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=" + STEAMAPIKEY + "&steamids=" + steamuserid) as url:
-                data = json.loads(url.read().decode())
-        except:
+        steamsummary = SteamAPI.get_player_summary(steamid)
+        if not steamsummary:
             embed = discord.Embed(
                 title="Steam Accounts", description="Please provide a valid steam id or url", color=COLOR)
             await ctx.send(embed=embed)
             return
-
-        if safe_get_list(safe_get_list(data, "response"), "players", []) == []:
-            embed = discord.Embed(
-                title="Steam Accounts", description="Please provide a valid steam id or url", color=COLOR)
-            await ctx.send(embed=embed)
-            return
-
-        # steamsummary = data["response"]["players"][0]
-        steamsummary = safe_get_list(safe_get_list(
-            safe_get_list(data, "response"), "players"), 0)
 
         embed = discord.Embed(title="Steam Account", description="Here's what I could find about " +
-                              str(safe_get_list(steamsummary, "personaname")) + ".", color=COLOR)
+                              str(safe_get_list(steamsummary, "personaname", steamid)) + ".", color=COLOR)
 
-        try:
-            embed.add_field(name="Name (Real Name)", value=str(
-                safe_get_list(steamsummary, "personaname") + " (" + safe_get_list(steamsummary, "realname") + ")"))
-        except:
-            embed.add_field(name="Name (Real Name)", value=str(
-                safe_get_list(steamsummary, "personaname") + " (" + "Private" + ")"))
+        embed.add_field(name="Name (Real Name)", value=str(
+            safe_get_list(steamsummary, "personaname", "Unknown") + " (" + safe_get_list(steamsummary, "realname", "Private") + ")"))
 
         embed.add_field(name="ID", value=str(
-            safe_get_list(steamsummary, "steamid")))
+            safe_get_list(steamsummary, "steamid", "Unknown")))
 
         try:
             embed.add_field(name="Country", value=str(
                 pycountry.countries.get(alpha_2=safe_get_list(steamsummary, "loccountrycode")).name))
-        except:
+        except AttributeError:
             embed.add_field(name="Country", value=str("Private"))
 
         embed.add_field(name="Status", value=str(
-            safe_get_list(["Offline", "Online", "Busy", "Away", "Snooze", "Looking to Trade"], safe_get_list(steamsummary, "personastate", "Unknown"))))
+            safe_get_list(["Offline", "Online", "Busy", "Away", "Snooze", "Looking to Trade"], safe_get_list(steamsummary, "personastate"), "Unknown")))
 
         try:
             embed.add_field(name="Joined", value=str(datetime.datetime.fromtimestamp(
-                int(safe_get_list(steamsummary, "timecreated"))).strftime('%Y-%m-%d')))
-        except ValueError:
+                int(safe_get_list(steamsummary, "timecreated", None))).strftime('%Y-%m-%d')))
+        except TypeError:
             embed.add_field(name="Joined", value=str("Unknown"))
 
-        with urllib.request.urlopen("https://api.steampowered.com/IPlayerService/GetSteamLevel/v1/?key=" + STEAMAPIKEY + "&steamid=" + steamuserid) as url:
-            leveldata = safe_get_list(json.loads(
-                url.read().decode()), "response")
         embed.add_field(name="Level", value=str(
-            safe_get_list(leveldata, "player_level")))
+            SteamAPI.get_steam_level(steamid)))
 
         embed.add_field(name="Profile", value=str(
-            safe_get_list(steamsummary, "profileurl")))
-        embed.set_thumbnail(url=safe_get_list(steamsummary, "avatarfull"))
+            safe_get_list(steamsummary, "profileurl", "Unknown")))
+        embed.set_thumbnail(url=safe_get_list(steamsummary, "avatarfull",
+                                              "https://steamuserimages-a.akamaihd.net/ugc/868480752636433334/1D2881C5C9B3AD28A1D8852903A8F9E1FF45C2C8/"))
         await ctx.send(embed=embed)
 
     @commands.command(pass_context=True, aliases=["addicted", "addict"])
-    async def addiction(self, ctx, user=None):
+    async def addiction(self, ctx, user=None, amount: int = 3):
         # Remove the message send by the author
         await asyncio.sleep(0.05)
         await ctx.message.delete()
@@ -105,47 +87,21 @@ class Gameinfo:
             await ctx.send(embed=embed)
             return
 
-        steamuserid = SteamAPI.get_steam_id(user)
-
-        try:
-            with urllib.request.urlopen("https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=" + STEAMAPIKEY + "&steamid=" + steamuserid) as url:
-                data = json.loads(url.read().decode())
-        except:
-            embed = discord.Embed(
-                title="Addiction Checker", description="Please provide a valid steam id or url", color=COLOR)
-            await ctx.send(embed=embed)
-            return
-
-        if safe_get_list(safe_get_list(data, "response"), "game_count", None) == None:
-            embed = discord.Embed(
-                title="Addiction Checker", description="Sorry, this account seems to be private", color=COLOR)
-            await ctx.send(embed=embed)
-            return
-
-        mostplayed = [0, 0]
-        for game in safe_get_list(safe_get_list(data, "response"), "games"):
-            if safe_get_list(game, "playtime_forever", 0) > mostplayed[1]:
-                mostplayed[0] = safe_get_list(game, "appid")
-                mostplayed[1] = safe_get_list(game, "playtime_forever")
-
-        try:
-            with urllib.request.urlopen("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=" + STEAMAPIKEY + "&steamids=" + steamuserid) as url:
-                steamsummary = safe_get_list(safe_get_list(safe_get_list(
-                    json.loads(url.read().decode()), "response"), "players"), 0)
-        except:
-            return
+        steamid = SteamAPI.get_steam_id(user)
+        mostplayed = SteamAPI.get_most_played_games(steamid, amount=amount)
+        steamsummary = SteamAPI.get_player_summary(steamid)
 
         embed = discord.Embed(title="Addiction Checker", description="Here's what I could find about " +
                               str(safe_get_list(steamsummary, "personaname")) + "." + "\nThey seem to be addicted to:", color=COLOR)
 
         embed.add_field(name="Game", value=str(
-            SteamAPI.get_game_title(mostplayed[0])))
+            '\n '.join([SteamAPI.get_game_title(mostplayed[i][0]) for i in range(amount)])))
         embed.add_field(name="Playtime", value=str(
-            int(mostplayed[1] / 60)) + "h")
+            '\n '.join([(str(int(mostplayed[i][1] / 60)) + "h") for i in range(amount)])))
         embed.add_field(name="Profile", value=str(
             safe_get_list(steamsummary, "profileurl")), inline=False)
         embed.set_thumbnail(url=str(
-            "https://steamcdn-a.akamaihd.net/steam/apps/{0}/header.jpg".format(mostplayed[0])))
+            "https://steamcdn-a.akamaihd.net/steam/apps/{0}/header.jpg".format(mostplayed[0][0])))
         await ctx.send(embed=embed)
 
 
