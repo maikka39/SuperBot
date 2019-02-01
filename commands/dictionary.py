@@ -25,23 +25,23 @@ class Dictionary:
 
         if safe_get_list(meaning, "Noun", False):
             embed.add_field(name="Noun", value=str(
-                '`1.`' + safe_get_list(safe_get_list(meaning, "Noun"), 0, "").capitalize() +
-                '\n`2.`' + safe_get_list(safe_get_list(meaning, "Noun"), 1, "").capitalize()), inline=False)
+                '`1.` ' + safe_get_list(safe_get_list(meaning, "Noun"), 0, "").capitalize() +
+                '\n`2.` ' + safe_get_list(safe_get_list(meaning, "Noun"), 1, "").capitalize()), inline=False)
 
         if safe_get_list(meaning, "Verb", False):
             embed.add_field(name="Verb", value=str(
-                '`1.`' + safe_get_list(safe_get_list(meaning, "Verb"), 0, "").capitalize() +
-                '\n`2.`' + safe_get_list(safe_get_list(meaning, "Verb"), 1, "").capitalize()), inline=False)
+                '`1.` ' + safe_get_list(safe_get_list(meaning, "Verb"), 0, "").capitalize() +
+                '\n`2.` ' + safe_get_list(safe_get_list(meaning, "Verb"), 1, "").capitalize()), inline=False)
 
         if safe_get_list(meaning, "Adjective", False):
             embed.add_field(name="Adjective", value=str(
-                '`1.`' + safe_get_list(safe_get_list(meaning, "Adjective"), 0, "").capitalize() +
-                '\n`2.`' + safe_get_list(safe_get_list(meaning, "Adjective"), 1, "").capitalize()), inline=False)
+                '`1.` ' + safe_get_list(safe_get_list(meaning, "Adjective"), 0, "").capitalize() +
+                '\n`2.` ' + safe_get_list(safe_get_list(meaning, "Adjective"), 1, "").capitalize()), inline=False)
 
         if safe_get_list(meaning, "Adverb", False):
             embed.add_field(name="Adverb", value=str(
-                '`1.`' + safe_get_list(safe_get_list(meaning, "Adverb"), 0, "").capitalize() +
-                '\n`2.`' + safe_get_list(safe_get_list(meaning, "Adverb"), 1, "").capitalize()), inline=False)
+                '`1.` ' + safe_get_list(safe_get_list(meaning, "Adverb"), 0, "").capitalize() +
+                '\n`2.` ' + safe_get_list(safe_get_list(meaning, "Adverb"), 1, "").capitalize()), inline=False)
 
         # embed.add_field(name="ID", value=user.id, inline=True)
 
@@ -54,6 +54,9 @@ class Dictionary:
         embed = discord.Embed(
             title="Translator", description="Coming Soon! :tools:", color=COLOR)
         await ctx.send(embed=embed)
+
+    # TODO: Synonyms
+    # TODO: Antonyms
 
 
 def setup(bot):
