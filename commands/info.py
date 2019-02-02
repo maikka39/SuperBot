@@ -79,7 +79,7 @@ class Info:
         embed.add_field(name="Members", value=str(total_members), inline=True)
 
         embed.add_field(
-            name="Support", value="https://discord.gg/vjFjJu", inline=False)
+            name="Support", value="https://discord.gg/YF9CrR8", inline=False)
         # embed.add_field(name="Invite Link", value="https://discordapp.com/oauth2/authorize?client_id=459079947219107860&scope=bot&permissions=8")
         # embed.add_field(name="Invite Link", value="https://discordapp.com/oauth2/authorize?client_id=459079947219107860&scope=bot&permissions=2146958591")
         embed.set_thumbnail(
