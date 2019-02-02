@@ -63,6 +63,16 @@ class Fun:
             self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
+    @commands.command(pass_context=True)
+    async def meme(self, ctx):
+        await asyncio.sleep(0.05)
+        await ctx.message.delete()
+        embed = discord.Embed(
+            title="Memes", description="Coming Soon! :tools:", color=COLOR)
+        embed.set_footer(text="Requested by {}".format(discord.utils.get(
+            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
+        await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(Fun(bot))
