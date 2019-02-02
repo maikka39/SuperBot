@@ -30,6 +30,8 @@ class Gameinfo:
         if user is None:
             embed = discord.Embed(
                 title="Steam Accounts", description="Please provide a valid Steam ID or Profile URL", color=COLOR)
+            embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
             return
 
@@ -39,6 +41,8 @@ class Gameinfo:
         if not steamsummary:
             embed = discord.Embed(
                 title="Steam Accounts", description="Please provide a valid steam id or url", color=COLOR)
+            embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
             return
 
@@ -73,6 +77,11 @@ class Gameinfo:
             safe_get_list(steamsummary, "profileurl", "Unknown")))
         embed.set_thumbnail(url=safe_get_list(steamsummary, "avatarfull",
                                               "https://steamuserimages-a.akamaihd.net/ugc/868480752636433334/1D2881C5C9B3AD28A1D8852903A8F9E1FF45C2C8/"))
+
+        embed.set_footer(text="Requested by {}".format(discord.utils.get(
+            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text="Requested by {}".format(discord.utils.get(
+            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
     @commands.command(pass_context=True, aliases=["addicted", "addict"])
@@ -84,6 +93,8 @@ class Gameinfo:
         if user is None:
             embed = discord.Embed(
                 title="Addiction Checker", description="Please provide a valid Steam ID or Profile URL", color=COLOR)
+            embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
             return
 
@@ -102,6 +113,18 @@ class Gameinfo:
             safe_get_list(steamsummary, "profileurl")), inline=False)
         embed.set_thumbnail(url=str(
             "https://steamcdn-a.akamaihd.net/steam/apps/{0}/header.jpg".format(mostplayed[0][0])))
+        embed.set_footer(text="Requested by {}".format(discord.utils.get(
+            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
+        await ctx.send(embed=embed)
+
+    @commands.command(pass_context=True)
+    async def csgo(self, ctx):
+        await asyncio.sleep(0.05)
+        await ctx.message.delete()
+        embed = discord.Embed(
+            title="Counter-Strike: Global Offensive", description="Coming Soon! :tools:", color=COLOR)
+        embed.set_footer(text="Requested by {}".format(discord.utils.get(
+            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
 

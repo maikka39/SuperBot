@@ -20,6 +20,8 @@ class Testing:
         await ctx.message.delete()
         embed = discord.Embed(
             title="Temporary", description="Coming Soon! :tools:", color=COLOR)
+        embed.set_footer(text="Requested by {}".format(discord.utils.get(
+            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
     @commands.command(pass_context=True, aliases=["rl"])

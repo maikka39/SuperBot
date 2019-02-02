@@ -27,6 +27,8 @@ class Staff:
             # If not, report that
             embed = discord.Embed(
                 title=Title, description="Please enter a valid number of messages to delete", color=COLOR)
+            embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
             return
 
@@ -53,6 +55,8 @@ class Staff:
         # Send a message in the channel
         embed = discord.Embed(title=Title, description=ctx.message.author.mention +
                               " has removed the last **" + str(deletemessages) + "** messages!", color=COLOR)
+        embed.set_footer(text="Requested by {}".format(discord.utils.get(
+            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
     @commands.command(pass_context=True)
@@ -70,12 +74,16 @@ class Staff:
         if not time.isdigit():
             embed = discord.Embed(
                 title=Title, description="Please enter a valid mute length", color=COLOR)
+            embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
             return
 
         if member is None:
             embed = discord.Embed(
                 title=Title, description="Please provide a valid member to mute", color=COLOR)
+            embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
             return
 
@@ -84,11 +92,15 @@ class Staff:
             await member.add_roles(role)
             embed = discord.Embed(title=Title, description="Member " + member.mention + " has been muted for **" +
                                   str(time) + "** minutes by " + ctx.message.author.mention, color=COLOR)
+            embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
         else:
             await member.add_roles(role)
             embed = discord.Embed(title=Title, description="Member " + member.mention +
                                   " has been muted by " + ctx.message.author.mention, color=COLOR)
+            embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
 
     @commands.command(pass_context=True)
@@ -103,12 +115,16 @@ class Staff:
         if member is None:
             embed = discord.Embed(
                 title=Title, description="Please provide a valid member to unmute", color=COLOR)
+            embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
             return
 
         await member.remove_roles(discord.utils.get(ctx.message.guild.roles, name="Muted"))
         embed = discord.Embed(title=Title, description="Member " + member.mention +
                               " has been unmuted by " + ctx.message.author.mention, color=COLOR)
+        embed.set_footer(text="Requested by {}".format(discord.utils.get(
+            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
     @commands.command(pass_context=True)
@@ -128,6 +144,8 @@ class Staff:
             print(e)
             embed = discord.Embed(title=Title, description="Could not kick " +
                                   member.mention + ", Privilege is too low", color=COLOR)
+        embed.set_footer(text="Requested by {}".format(discord.utils.get(
+            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
 

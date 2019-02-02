@@ -55,6 +55,8 @@ class Music:
                     title=self.message_title,
                     description="You are not in a voice channel.",
                     color=COLOR)
+                embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                    self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
                 await ctx.send(embed=embed)
                 return False
 
@@ -67,6 +69,8 @@ class Music:
                 title=self.message_title,
                 description="Moving to your current voice channel...",
                 color=COLOR)
+            embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
             await self.voice_client.move_to(channel)
         # If the voice channel the user provided is not valid, tell the user
@@ -75,6 +79,8 @@ class Music:
                 title=self.message_title,
                 description="This is not a voice channel...",
                 color=COLOR)
+            embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
         # If everything succeeded without incidents, tell the user
         else:
@@ -82,6 +88,8 @@ class Music:
                 title=self.message_title,
                 description="Ready to play audio in " + channel.name,
                 color=COLOR)
+            embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
             return True
         return False
@@ -99,6 +107,8 @@ class Music:
             title=self.message_title,
             description="Leaving...",
             color=COLOR)
+        embed.set_footer(text="Requested by {}".format(discord.utils.get(
+            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
         self.voice_client.stop()
         await self.voice_client.disconnect()
@@ -139,6 +149,8 @@ class Music:
         embed.add_field(name="Requested By",
                         value=song.requester, inline=False)
         embed.set_thumbnail(url=song.thumbnail_url)
+        embed.set_footer(text="Requested by {}".format(discord.utils.get(
+            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
     @commands.command(pass_context=True, no_pm=True, aliases=["vol", "v"])
@@ -156,6 +168,8 @@ class Music:
                 description="Set the volume to {:.0%}".format(
                     self.voice_client.source.volume),
                 color=COLOR)
+            embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
             return
         else:
@@ -163,6 +177,8 @@ class Music:
                 title=self.message_title,
                 description="I'm not playing any music right now...",
                 color=COLOR)
+            embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
             return
 
@@ -176,6 +192,8 @@ class Music:
                 title=self.message_title,
                 description="I already paused the song!",
                 color=COLOR)
+            embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
             return
         if self.voice_client.is_playing():
@@ -184,6 +202,8 @@ class Music:
                 title=self.message_title,
                 description="Paused!",
                 color=COLOR)
+            embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
             return
         else:
@@ -191,6 +211,8 @@ class Music:
                 title=self.message_title,
                 description="I'm not playing any music right now...",
                 color=COLOR)
+            embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
             return
 
@@ -206,6 +228,8 @@ class Music:
                     title=self.message_title,
                     description="Resumed!",
                     color=COLOR)
+                embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                    self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
                 await ctx.send(embed=embed)
                 return
             else:
@@ -213,6 +237,8 @@ class Music:
                     title=self.message_title,
                     description="I'm already playing!",
                     color=COLOR)
+                embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                    self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
                 await ctx.send(embed=embed)
                 return
         else:
@@ -220,6 +246,8 @@ class Music:
                 title=self.message_title,
                 description="I'm not playing any music right now...",
                 color=COLOR)
+            embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
             return
 
@@ -231,6 +259,8 @@ class Music:
         if not self.voice_client.is_playing():
             embed = discord.Embed(
                 title=self.message_title, description="I'm not playing any music right now...", color=COLOR)
+            embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
             return
 
@@ -238,6 +268,8 @@ class Music:
         if voter == self.voice_client.song.requester:
             embed = discord.Embed(
                 title=self.message_title, description="Requester skipped song...", color=COLOR)
+            embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
             self.play_next_song()
         elif voter.id not in self.voice_client.song.skip_votes:
@@ -247,16 +279,22 @@ class Music:
             if total_votes >= min_votes:
                 embed = discord.Embed(
                     title=self.message_title, description="Skip vote passed, skipping song...", color=COLOR)
+                embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                    self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
                 await ctx.send(embed=embed)
                 self.voice_client.stop()
                 self.play_next_song()
             else:
                 embed = discord.Embed(
                     title=self.message_title, description="Skip vote added, currently at [{}/{}]".format(total_votes, min_votes), color=COLOR)
+                embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                    self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
                 await ctx.send(embed=embed)
         else:
             embed = discord.Embed(
                 title=self.message_title, description="You have already voted to skip this song.", color=COLOR)
+            embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
 
     @commands.command(pass_context=True, no_pm=True, aliases=["q"])
@@ -284,6 +322,8 @@ class Music:
         else:
             embed.add_field(name="Upcoming", value=upcoming +
                             "\n", inline=False)
+        embed.set_footer(text="Requested by {}".format(discord.utils.get(
+            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
     def play_next_song(self):

@@ -20,6 +20,8 @@ class Fun:
     async def ping(self, ctx):
         embed = discord.Embed(
             title="Ping Pong", description=str("Pong :ping_pong: \n\n Response took `{0}ms`".format(round(self.bot.latency * 1000, 1))), color=COLOR)
+        embed.set_footer(text="Requested by {}".format(discord.utils.get(
+            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
     @commands.command(pass_context=True)
@@ -31,6 +33,8 @@ class Fun:
         # Send a message with a pseudo-random number
         embed = discord.Embed(title="Roll a Dice", description=ctx.message.author.mention +
                               " rolled a **" + str(random.randint(1, 6)) + "**!", color=COLOR)
+        embed.set_footer(text="Requested by {}".format(discord.utils.get(
+            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
     @commands.command(pass_context=True)
@@ -42,6 +46,8 @@ class Fun:
         # Send a message with a "real" random number
         embed = discord.Embed(title="Roll a Dice", description=ctx.message.author.mention +
                               " rolled a **" + str(secrets.randbelow(6) + 1) + "**!", color=COLOR)
+        embed.set_footer(text="Requested by {}".format(discord.utils.get(
+            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
     @commands.command(pass_context=True)
@@ -53,6 +59,8 @@ class Fun:
         # Send a message with a "real" random number
         embed = discord.Embed(title="Tell the Time", description="The current time is " +
                               str(datetime.datetime.utcnow().time())[:-7] + " UTC", color=COLOR)
+        embed.set_footer(text="Requested by {}".format(discord.utils.get(
+            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
 

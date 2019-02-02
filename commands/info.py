@@ -31,6 +31,8 @@ class Info:
         # embed.add_field(name="Joined", value=str(user.joined_at)[:-7])
         embed.add_field(name="Joined", value=str(user.joined_at)[:-16])
         embed.set_thumbnail(url=user.avatar_url)
+        embed.set_footer(text="Requested by {}".format(discord.utils.get(
+            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
     @commands.command(pass_context=True)
@@ -48,6 +50,8 @@ class Info:
             ctx.message.guild.roles), inline=True)
         embed.add_field(name="Members", value=len(ctx.message.guild.members))
         embed.set_thumbnail(url=ctx.message.guild.icon_url)
+        embed.set_footer(text="Requested by {}".format(discord.utils.get(
+            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
     @commands.command(pass_context=True, aliases=["bot"])
@@ -80,6 +84,8 @@ class Info:
         # embed.add_field(name="Invite Link", value="https://discordapp.com/oauth2/authorize?client_id=459079947219107860&scope=bot&permissions=2146958591")
         embed.set_thumbnail(
             url="https://cdn.discordapp.com/app-icons/459079947219107860/12dff058050c439509940490dd4bbe3c.png?size=256")
+        embed.set_footer(text="Requested by {}".format(discord.utils.get(
+            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
     @commands.command(pass_context=True, aliases=["h", "docs"])
@@ -93,6 +99,8 @@ class Info:
             name="Help", description="Documentation about me!", color=COLOR)
         embed.add_field(
             name="Link", value="https://github.com/maikka39/SuperBot/wiki", inline=True)
+        embed.set_footer(text="Requested by {}".format(discord.utils.get(
+            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
 
