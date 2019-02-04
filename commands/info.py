@@ -27,7 +27,7 @@ class Info:
         embed.add_field(name="ID", value=user.id, inline=True)
         embed.add_field(name="Status", value=str(
             user.status).title(), inline=True)
-        embed.add_field(name="Highest role", value=user.top_role)
+        embed.add_field(name="Highest role", value=user.top_role.mention)
         # embed.add_field(name="Joined", value=str(user.joined_at)[:-7])
         embed.add_field(name="Joined", value=str(user.joined_at)[:-16])
         embed.set_thumbnail(url=user.avatar_url)
