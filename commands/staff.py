@@ -34,7 +34,7 @@ class Staff(commands.Cog):
             return
 
         # Make the number and interger and make it positive
-        number = abs(int(number))
+        number = max(0, int(number))
 
         # Initialize the message counter
         deletemessages = 0
