@@ -86,8 +86,6 @@ class Testing(commands.Cog):
         await asyncio.sleep(0.05)
         await ctx.message.delete()
         os.system("cls" if os.name == "nt" else "clear")
-        for i in range(50):
-            print("")
         embed = discord.Embed(title="Console Cleaner",
                               description="Console cleared", color=COLOR)
         await ctx.send(embed=embed)
