@@ -222,26 +222,24 @@ class Music(commands.Cog):
         """Resumes the currently played song."""
         if not self.voice_client:
             return
-        if self.voice_client.is_playing():
-            if self.voice_client.is_paused():
-                self.voice_client.resume()
-                embed = discord.Embed(
-                    title=self.message_title,
-                    description="Resumed!",
-                    color=COLOR)
-                embed.set_footer(text="Requested by {}".format(discord.utils.get(
-                    self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
-                await ctx.send(embed=embed)
-                return
-            else:
-                embed = discord.Embed(
-                    title=self.message_title,
-                    description="I'm already playing!",
-                    color=COLOR)
-                embed.set_footer(text="Requested by {}".format(discord.utils.get(
-                    self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
-                await ctx.send(embed=embed)
-                return
+
+        if self.voice_client.is_paused():
+            self.voice_client.resume()
+            embed = discord.Embed(
+                title=self.message_title,
+                description="Resumed!",
+                color=COLOR)
+            embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
+            await ctx.send(embed=embed)
+        elif self.voice_client.is_playing():
+            embed = discord.Embed(
+                title=self.message_title,
+                description="I'm already playing!",
+                color=COLOR)
+            embed.set_footer(text="Requested by {}".format(discord.utils.get(
+                self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
+            await ctx.send(embed=embed)
         else:
             embed = discord.Embed(
                 title=self.message_title,
@@ -250,7 +248,6 @@ class Music(commands.Cog):
             embed.set_footer(text="Requested by {}".format(discord.utils.get(
                 self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
-            return
 
     @commands.command(pass_context=True, no_pm=True, aliases=["s"])
     async def skip(self, ctx):
