@@ -1,18 +1,16 @@
 import asyncio
 import datetime
-import json
-import urllib.request
+import os
 from commands.lib.other import safe_get_list
 from commands.lib.steamapi import SteamAPI as steam_api
 
 import discord
 import pycountry
 from discord.ext import commands
-from mainconf import STEAMAPIKEY
 
 COLOR = 0x0288d1
 
-SteamAPI = steam_api(STEAMAPIKEY)
+SteamAPI = steam_api(os.environ["STEAMAPIKEY"])
 
 
 class Gameinfo(commands.Cog):

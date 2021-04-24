@@ -71,7 +71,7 @@ sudo apt install ffmpeg
 
 #### Run the Discord bot
 
-Edit the `mainconf.py` and addd your API keys.
+Copy to `.env.example` file to `.env` and addd your API keys.
 
 Then start the bot:
 ```bash
