@@ -2,11 +2,9 @@ import asyncio
 import datetime
 import random
 import secrets
-import sys
 
 import discord
 from discord.ext import commands
-from pythonping import ping
 
 COLOR = 0xff6d00
 

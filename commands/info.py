@@ -75,8 +75,6 @@ class Info(commands.Cog):
 
         embed.add_field(
             name="Support", value="https://discord.gg/vjFjJu", inline=False)
-        # embed.add_field(name="Invite Link", value="https://discordapp.com/oauth2/authorize?client_id=459079947219107860&scope=bot&permissions=8")
-        # embed.add_field(name="Invite Link", value="https://discordapp.com/oauth2/authorize?client_id=459079947219107860&scope=bot&permissions=2146958591")
         embed.set_thumbnail(
             url="https://cdn.discordapp.com/app-icons/459079947219107860/12dff058050c439509940490dd4bbe3c.png?size=256")
         await ctx.send(embed=embed)

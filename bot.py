@@ -1,11 +1,12 @@
-# import asyncio
 import logging
 import os
 import sys
+from dotenv import load_dotenv
 
 import discord
 from discord.ext import commands
-from mainconf import TOKEN
+
+load_dotenv()
 
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
@@ -51,4 +52,4 @@ if __name__ == "__main__":
             exc = '{}: {}'.format(type(e).__name__, e)
             print('Failed to load extension {}\n{}'.format(extension, exc))
 
-    bot.run(TOKEN)
+    bot.run(os.environ["TOKEN"])
