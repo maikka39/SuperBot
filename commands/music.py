@@ -104,7 +104,7 @@ class Music(commands.Cog):
         self.song_queue = []
 
     @commands.command(pass_context=True, no_pm=True, aliases=["p"])
-    async def play(self, ctx, song: str):
+    async def play(self, ctx, *args):
         """Plays a song"""
         await asyncio.sleep(0.05)
         await ctx.message.delete()
@@ -113,6 +113,8 @@ class Music(commands.Cog):
             success = await ctx.invoke(self.join)
             if not success:
                 return
+
+        song = " ".join(args)
 
         song = self.add_to_queue(song, ctx.message.author.mention)
         if not self.voice_client.is_playing():
