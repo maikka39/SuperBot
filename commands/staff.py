@@ -56,8 +56,8 @@ class Staff(commands.Cog):
         # Send a message in the channel
         embed = discord.Embed(title=Title, description=ctx.message.author.mention +
                               " has removed the last **" + str(deletemessages) + "** messages!", color=COLOR)
-        embed.set_footer(text="Requested by {}".format(discord.utils.get(
-            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(
+            text=f"Requested by {ctx.message.author.nick if ctx.message.author.nick is not None else ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
     @commands.command(pass_context=True)
@@ -124,8 +124,8 @@ class Staff(commands.Cog):
         await member.remove_roles(discord.utils.get(ctx.message.guild.roles, name="Muted"))
         embed = discord.Embed(title=Title, description="Member " + member.mention +
                               " has been unmuted by " + ctx.message.author.mention, color=COLOR)
-        embed.set_footer(text="Requested by {}".format(discord.utils.get(
-            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(
+            text=f"Requested by {ctx.message.author.nick if ctx.message.author.nick is not None else ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
     @commands.command(pass_context=True)
@@ -146,8 +146,8 @@ class Staff(commands.Cog):
             print(e)
             embed = discord.Embed(title=Title, description="Could not kick " +
                                   member.mention + ", An error occured", color=COLOR)
-        embed.set_footer(text="Requested by {}".format(discord.utils.get(
-            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(
+            text=f"Requested by {ctx.message.author.nick if ctx.message.author.nick is not None else ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
 

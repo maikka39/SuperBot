@@ -45,8 +45,8 @@ class Dictionary(commands.Cog):
                 '`1.` ' + safe_get_list(safe_get_list(meaning, "Adverb"), 0, "").capitalize() +
                 '\n`2.` ' + safe_get_list(safe_get_list(meaning, "Adverb"), 1, "").capitalize()), inline=False)
 
-        embed.set_footer(text="Requested by {}".format(discord.utils.get(
-            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(
+            text=f"Requested by {ctx.message.author.nick if ctx.message.author.nick is not None else ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
     # # TODO: Translations

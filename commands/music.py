@@ -54,8 +54,8 @@ class Music(commands.Cog):
                     title=self.message_title,
                     description="You are not in a voice channel.",
                     color=COLOR)
-                embed.set_footer(text="Requested by {}".format(discord.utils.get(
-                    self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
+                embed.set_footer(
+                    text=f"Requested by {ctx.message.author.nick if ctx.message.author.nick is not None else ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
                 await ctx.send(embed=embed)
                 return False
 
@@ -106,8 +106,8 @@ class Music(commands.Cog):
             title=self.message_title,
             description="Leaving...",
             color=COLOR)
-        embed.set_footer(text="Requested by {}".format(discord.utils.get(
-            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(
+            text=f"Requested by {ctx.message.author.nick if ctx.message.author.nick is not None else ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
         self.voice_client.stop()
         await self.voice_client.disconnect()
@@ -150,8 +150,8 @@ class Music(commands.Cog):
         embed.add_field(name="Requested By",
                         value=song.requester, inline=False)
         embed.set_thumbnail(url=song.thumbnail_url)
-        embed.set_footer(text="Requested by {}".format(discord.utils.get(
-            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(
+            text=f"Requested by {ctx.message.author.nick if ctx.message.author.nick is not None else ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
     @commands.command(pass_context=True, no_pm=True, aliases=["vol", "v"])
@@ -277,16 +277,16 @@ class Music(commands.Cog):
             if total_votes >= min_votes:
                 embed = discord.Embed(
                     title=self.message_title, description="Skip vote passed, skipping song...", color=COLOR)
-                embed.set_footer(text="Requested by {}".format(discord.utils.get(
-                    self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
+                embed.set_footer(
+                    text=f"Requested by {ctx.message.author.nick if ctx.message.author.nick is not None else ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
                 await ctx.send(embed=embed)
                 self.voice_client.stop()
                 self.play_next_song()
             else:
                 embed = discord.Embed(
                     title=self.message_title, description="Skip vote added, currently at [{}/{}]".format(total_votes, min_votes), color=COLOR)
-                embed.set_footer(text="Requested by {}".format(discord.utils.get(
-                    self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
+                embed.set_footer(
+                    text=f"Requested by {ctx.message.author.nick if ctx.message.author.nick is not None else ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
                 await ctx.send(embed=embed)
         else:
             embed = discord.Embed(
@@ -320,8 +320,8 @@ class Music(commands.Cog):
         else:
             embed.add_field(name="Upcoming", value=upcoming +
                             "\n", inline=False)
-        embed.set_footer(text="Requested by {}".format(discord.utils.get(
-            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(
+            text=f"Requested by {ctx.message.author.nick if ctx.message.author.nick is not None else ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
     def play_next_song(self, _=None):

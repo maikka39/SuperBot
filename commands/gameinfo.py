@@ -75,10 +75,10 @@ class Gameinfo(commands.Cog):
         embed.set_thumbnail(url=safe_get_list(steamsummary, "avatarfull",
                                               "https://steamuserimages-a.akamaihd.net/ugc/868480752636433334/1D2881C5C9B3AD28A1D8852903A8F9E1FF45C2C8/"))
 
-        embed.set_footer(text="Requested by {}".format(discord.utils.get(
-            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
-        embed.set_footer(text="Requested by {}".format(discord.utils.get(
-            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(
+            text=f"Requested by {ctx.message.author.nick if ctx.message.author.nick is not None else ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(
+            text=f"Requested by {ctx.message.author.nick if ctx.message.author.nick is not None else ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
     @commands.command(pass_context=True, aliases=["addicted", "addict"])
@@ -110,8 +110,8 @@ class Gameinfo(commands.Cog):
             safe_get_list(steamsummary, "profileurl")), inline=False)
         embed.set_thumbnail(url=str(
             "https://steamcdn-a.akamaihd.net/steam/apps/{0}/header.jpg".format(mostplayed[0][0])))
-        embed.set_footer(text="Requested by {}".format(discord.utils.get(
-            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(
+            text=f"Requested by {ctx.message.author.nick if ctx.message.author.nick is not None else ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
     @commands.command(pass_context=True)
@@ -120,8 +120,8 @@ class Gameinfo(commands.Cog):
         await ctx.message.delete()
         embed = discord.Embed(
             title="Counter-Strike: Global Offensive", description="Coming Soon! :tools:", color=COLOR)
-        embed.set_footer(text="Requested by {}".format(discord.utils.get(
-            self.bot.get_all_members(), id=ctx.message.author.id)), icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(
+            text=f"Requested by {ctx.message.author.nick if ctx.message.author.nick is not None else ctx.message.author.name}", icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
 
