@@ -10,8 +10,7 @@ COLOR = 0xbb33ee
 # TODO: Get other dictionary library
 
 
-class Dictionary:
-
+class Dictionary(commands.Cog):
     def __init__(self, bot):  # This allows the cog to access the bot, and its functions
         self.bot = bot
         self.pydictionary = PyDictionary()

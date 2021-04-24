@@ -7,8 +7,7 @@ from discord.ext import commands
 COLOR = 0x64dd17
 
 
-class Info:
-
+class Info(commands.Cog):
     def __init__(self, bot):  # This allows the cog to access the bot, and its functions
         self.bot = bot
 
