@@ -287,7 +287,7 @@ class Music(commands.Cog):
                             "\n", inline=False)
         await ctx.send(embed=embed)
 
-    def play_next_song(self):
+    def play_next_song(self, _=None):
         if self.voice_client.is_playing():
             self.voice_client.stop()
 
