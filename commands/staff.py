@@ -114,7 +114,7 @@ class Staff(commands.Cog):
 
     @commands.command(pass_context=True)
     @commands.has_permissions(kick_members=True)
-    async def kick(self, ctx, member: discord.Member, *,reason: Optional[str] = None):
+    async def kick(self, ctx, member: discord.Member, *, reason: Optional[str] = None):
         # Remove the message send by the author
         await asyncio.sleep(0.05)
         await ctx.message.delete()
@@ -123,12 +123,13 @@ class Staff(commands.Cog):
 
         embed = discord.Embed(title=Title, description="Member " + member.mention +
                               " has been kicked by " + ctx.message.author.mention, color=COLOR)
+
         try:
-            await member.kick(reason = reason)
+            await member.kick(reason=reason)
         except Exception as e:
             print(e)
             embed = discord.Embed(title=Title, description="Could not kick " +
-                                  member.mention + ", Privilege is too low", color=COLOR)
+                                  member.mention + ", An error occured", color=COLOR)
         await ctx.send(embed=embed)
 
 
