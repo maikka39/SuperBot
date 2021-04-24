@@ -19,7 +19,7 @@ if not discord.opus.is_loaded():
     discord.opus.load_opus('opus')
 
 
-class Music:
+class Music(commands.Cog):
     def __init__(self, bot):  # This allows the cog to access the bot, and its functions
         self.bot = bot
         self.message_title = "Music Player"

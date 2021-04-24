@@ -11,8 +11,7 @@ from pythonping import ping
 COLOR = 0xff6d00
 
 
-class Fun:
-
+class Fun(commands.Cog):
     def __init__(self, bot):  # This allows the cog to access the bot, and its functions
         self.bot = bot
 

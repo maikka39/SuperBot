@@ -15,8 +15,7 @@ COLOR = 0x0288d1
 SteamAPI = steam_api(STEAMAPIKEY)
 
 
-class Gameinfo:
-
+class Gameinfo(commands.Cog):
     def __init__(self, bot):  # This allows the cog to access the bot, and its functions
         self.bot = bot
         SteamAPI.get_game_titles()
