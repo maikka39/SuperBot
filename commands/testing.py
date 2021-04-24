@@ -1,5 +1,6 @@
 import asyncio
 import sys
+import os
 
 import discord
 from discord.ext import commands
@@ -8,8 +9,7 @@ from mainconf import BOTDEVS
 COLOR = 0x00ff00
 
 
-class Testing:
-
+class Testing(commands.Cog):
     def __init__(self, bot):  # This allows the cog to access the bot, and its functions
         self.bot = bot
 
@@ -85,6 +85,7 @@ class Testing:
     async def clearconsole(self, ctx):
         await asyncio.sleep(0.05)
         await ctx.message.delete()
+        os.system("cls" if os.name == "nt" else "clear")
         for i in range(50):
             print("")
         embed = discord.Embed(title="Console Cleaner",
