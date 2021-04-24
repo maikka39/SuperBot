@@ -12,53 +12,59 @@ SuperBot is still in beta
 
 [![forthebadge](https://forthebadge.com/images/badges/powered-by-electricity.svg)](https://forthebadge.com)
 
-
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/) [![GitHub issues](https://img.shields.io/github/issues/maikka39/SuperBot.svg "GitHub issues")](https://github.com/maikka39/SuperBot/issues) [![GitHub stars](https://img.shields.io/github/stars/maikka39/SuperBot.svg "GitHub stars")](https://github.com/maikka39/SuperBot/stargazers) [![Github search hit counter](https://img.shields.io/github/search/maikka39/SuperBot/hit.svg)](#)
 
 ## Features
 
-* Play music
-    * Pause
-    * Resume
-    * Volume Control
-    * Queue
-    * Skip song
+- Play music
 
-* Manage Server
-    * Kick Members
-    * Ban Members
-    * Mute Members
-    * Clear Chat
+  - Pause
+  - Resume
+  - Volume Control
+  - Queue
+  - Skip song
 
-* Game Stats
-    * Steam
-    * CS:GO
-    * More Coming Soon!
+- Manage Server
 
-* User Info
-    * Get info about a user
-    * Get info about the current server
-    * Get info about this bot
+  - Kick Members
+  - Ban Members
+  - Mute Members
+  - Clear Chat
 
-* Other
-    * Roll a Dice
-    * Get the Time
-    * Ping Pong
+- Game Stats
+
+  - Steam
+  - CS:GO
+  - More Coming Soon!
+
+- User Info
+
+  - Get info about a user
+  - Get info about the current server
+  - Get info about this bot
+
+- Other
+  - Roll a Dice
+  - Get the Time
+  - Ping Pong
 
 ## Usage
+
 [How to use this bot.](https://github.com/maikka39/SuperBot/wiki)
 
 ## Dependencies
 
-* discord.py
-* youtube-dl
-* pycountry
-* pythonping
+- discord.py
+- youtube-dl
+- pycountry
+- pythonping
 
 ## How to run
+
 How to run this bot yourself.
 
-#### Install dependencies:
+### Install dependencies
+
 ```bash
 git clone https://github.com/Rapptz/discord.py.git --branch rewrite --single-branch discord.py
 cd discord.py
@@ -69,11 +75,12 @@ python3.6 -m pip install pythonping
 sudo apt install ffmpeg
 ```
 
-#### Run the Discord bot
+### Run the Discord bot
 
 Copy to `.env.example` file to `.env` and addd your API keys.
 
 Then start the bot:
+
 ```bash
 python3.6 bot.py
 ```
