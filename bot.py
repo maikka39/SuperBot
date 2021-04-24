@@ -18,7 +18,7 @@ logger.addHandler(handler)
 
 
 print("Starting bot...")
-bot = commands.Bot(command_prefix='-')
+bot = commands.Bot(command_prefix=os.environ["COMMAND_PREFIX"])
 
 initial_extensions = [
     "fun",
